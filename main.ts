@@ -71,7 +71,7 @@ const resolvers = {
   },
 };
 
-const server = new ApolloServer({ typeDefs: schemaGQL, resolvers });
+const server = new ApolloServer({ typeDefs: schemaGQL, resolvers:resolvers });
 
 const { url } = await startStandaloneServer(server, {
   listen: { port: 3000 },
