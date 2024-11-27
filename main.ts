@@ -6,7 +6,6 @@ import { fromModeltoDinosaur } from "./utils.ts";
 
 
 
-// MongoDB Connection
 const MONGO_URL = Deno.env.get("MONGO_URL");
 if (!MONGO_URL) {
   console.log("Fallo url");
@@ -20,7 +19,7 @@ console.log("Conectado correctamente");
 const db = client.db("DinoGraphQL");
 const dinosaurCollection = db.collection<dinosaurModel>("dinosaurs");
 
-// GraphQL Schema
+
 const schemaGQL =`#graphql
   type Dinosaur {
     id: String
@@ -39,7 +38,7 @@ const schemaGQL =`#graphql
   }
 `;
 
-// Resolvers
+
 const resolvers = {
   Query: {
     getDinosaurs: async () => {
@@ -54,7 +53,6 @@ const resolvers = {
     },
   },
   Mutation: {
-    // Create a new dinosaur
     createDinosaur: async (_: unknown, { name, family }: { name: string; family: string }) => {
         const dino = await dinosaurCollection.insertOne({ name, family });
         return {
@@ -73,7 +71,6 @@ const resolvers = {
   },
 };
 
-// Start Apollo Server
 const server = new ApolloServer({ typeDefs: schemaGQL, resolvers });
 
 const { url } = await startStandaloneServer(server, {
