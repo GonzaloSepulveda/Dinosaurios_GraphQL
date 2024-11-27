@@ -34,7 +34,7 @@ const schemaGQL =`#graphql
 
   type Mutation {
     createDinosaur(name: String!, family: String!): Dinosaur
-    eliminateDinosaur(id:String!)
+    eliminateDinosaur(id:String!):String
   }
 `;
 
